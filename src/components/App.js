@@ -29,9 +29,24 @@ const games = [
       duration: 45
     }
   ];
-const App=()=>(
-    <div className="ui container">
-        <GamesList games={games}/>
-    </div>
-);
+
+  class App extends React.Component{
+        state={
+            games:[]
+        };
+
+        componentDidMount(){
+            this.setState({games})
+        }
+
+      render(){
+          return(
+            <div className="ui container">
+                <GamesList games={this.state.games}/>
+            </div>
+          )
+        
+      }
+  }
+
 export default App;
