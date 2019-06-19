@@ -5,9 +5,11 @@ const Featured=({featured, c, gameId})=>{
   return (
       <span>
           {featured ? (
-            <a onClick={()=>c(gameId)} className="ui right yellow corner label"><i className="star icon"></i></a>
+            <a  onClick={()=>c(gameId)} className="ui right yellow corner label"><i className="star icon"></i></a>
           ):(
-<a onClick={()=>c(gameId)} className="ui right corner label"><i className="empty star icon"></i></a>
+            <a  onClick={()=>c(gameId)} className="ui right corner label">
+                <i className="empty star icon"></i>
+            </a>
 
           )}
       </span>

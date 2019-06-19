@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import GameCard from './GameCard';
 import Message from './Message'
 
-const GamesList=({games, a})=> {
+const GamesList=({games, a, desc, showDesc,descToggle, descs})=> {
   return (
     <div className="ui four cards">
       {/* //map function to loop through games */}
@@ -11,7 +11,8 @@ const GamesList=({games, a})=> {
           games.length === 0 ? (
             <Message/>
           ):(
-          games.map(game =><GameCard b={a} game={game} key={game._id} /> )
+          games.map(game =><GameCard b={a} game={game} key={game._id} desc1={desc} fdesc={descs}  showDesc={showDesc}
+          descToggle={descToggle} /> )
           )
         }
     </div>
