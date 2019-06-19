@@ -7,7 +7,7 @@ export default function GameCard({game}) {
             <div className="image">
                 <span className="ui green ribbon label">£{game.price}</span>
                 <img 
-                src={game.image} 
+                src={game.thumbnail} 
                 alt="Game Cover"/>
             </div>
             <div className="content">
