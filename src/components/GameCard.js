@@ -6,7 +6,10 @@ export default function GameCard({game}) {
     return (
         <div className="ui card">
             <div className="image">
-                <span className="ui green ribbon label">£{game.price}</span>
+                <span className="ui green ribbon label">
+                £{game.price} 
+                {game.price < 30 && "!"}
+                </span>
                 <img 
                 src={game.thumbnail} 
                 alt="Game Cover"/>
