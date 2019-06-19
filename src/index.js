@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {render} from "react-dom";
-import GameCard from "./components/GameCard"
+// import GameCard from "./components/GameCard"
 import App from "./components/App"
 // import ReactDOM from 'react-dom'
 
