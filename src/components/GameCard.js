@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import Featured from './Featured'
-import GamesList from './GamesList';
+// import GamesList from './GamesList';
 
-export default function GameCard({game}) {
+export default function GameCard({game, b}) {
     return (
         <div className="ui card">
             <div className="image">
@@ -11,7 +11,10 @@ export default function GameCard({game}) {
                 £{game.price} 
                 {game.price < 30 && "!"}
                 </span>
-                <Featured featured={game.featured}/>
+                <Featured featured={game.featured} 
+                gameId ={game._id}
+                c={b}
+                />
                 <img 
                 src={game.thumbnail} 
                 alt="Game Cover"/>
