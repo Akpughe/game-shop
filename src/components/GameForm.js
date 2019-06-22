@@ -28,14 +28,32 @@ export default class GameForm extends Component {
       publisher: 0,
       thumbnail: '',
     },
-    errors: {}
+    errors: {},
     // email: '',
     // password: '',
   };
 
+  validate(data) {
+    const errors = {};
+
+    if (!data.name) errors.name = "This field can't be blank";
+    if (!data.players) errors.players = "This field can't be blank";
+    if (!data.publisher) errors.publisher = "This field can't be blank";
+    if (!data.thumbnail) errors.thumbnail = "This field can't be blank";
+    if (data.price <= 0) errors.price = "Too cheap, don't you think";
+    if (data.duration <= 0) errors.duration = "Too short, isn't it";
+
+    return errors;
+  }
+
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state.data);
+    const errors = this.validate(this.state.data);
+    this.setState({ errors });
+
+    if (Object.keys(errors).length === 0) {
+      console.log(this.state.data);
+    }
   };
 
   handleStringChange = e =>
@@ -89,7 +107,10 @@ export default class GameForm extends Component {
                     onChange={this.handleStringChange}
                   />
                 </label>
-                <FormInlineMessage content={errors.descriptionthumbnail} type="error" />
+                <FormInlineMessage
+                  content={errors.descriptionthumbnail}
+                  type="error"
+                />
               </div>
             </div>
             <div className="four wide column">
@@ -171,7 +192,6 @@ export default class GameForm extends Component {
               onChange={this.handleCheckboxChange}
             />
             <label htmlFor="featured">Featured?</label>
-            <FormInlineMessage content={errors.name} type="error" />
           </div>
 
           {/* <div className="field">
