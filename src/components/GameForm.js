@@ -52,7 +52,7 @@ export default class GameForm extends Component {
     this.setState({ errors });
 
     if (Object.keys(errors).length === 0) {
-      console.log(this.state.data);
+      this.props.submit(this.state.data);
     }
   };
 
@@ -317,9 +317,10 @@ GameForm.propTypes = {
       name: PropTypes.string.isRequired,
     }),
   ),
-  email: PropTypes.string,
-  password: PropTypes.string,
+  // email: PropTypes.string,
+  // password: PropTypes.string,
   cancel: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
 };
 GameForm.defaultProps = {
   publishers: [],
