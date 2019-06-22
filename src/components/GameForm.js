@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactImageFallback from 'react-image-fallback';
- 
 
 const tags = [
   { _id: 1, name: 'dice' },
@@ -203,9 +202,13 @@ export default class GameForm extends Component {
           </select>
         </div>
 
-        <button className="ui button" type="submit">
-          Create
-        </button>
+        <div className="ui fluid buttons">
+          <button className="ui button primary" type="submit">
+            Create
+          </button>
+          <div className="or" />
+          <a className="ui button" onClick={this.props.cancel}>Cancel</a>
+        </div>
       </form>
     );
   }
@@ -218,6 +221,7 @@ GameForm.propTypes = {
       name: PropTypes.string.isRequired,
     }),
   ),
+  cancel: PropTypes.func.isRequired
 };
 GameForm.defaultProps = {
   publishers: [],
