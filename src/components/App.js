@@ -68,6 +68,7 @@ class App extends React.Component {
     games: [],
     showDesc: false,
     showGameForm: false,
+    selectedGame:{}
   };
 
   componentDidMount() {
@@ -101,6 +102,9 @@ class App extends React.Component {
   }
   showGameForm = () => this.setState({ showGameForm: true });
   hideGameForm = () => this.setState({ showGameForm: false });
+
+  selectedGameForEditing = game => this.setState({selectedGame:game, showGameForm: true})
+
   addGame = game => this.setState({
     games:this.sortGames([
       //appending the already existing games
@@ -122,6 +126,7 @@ class App extends React.Component {
             <div className="six wide column">
               <GameForm publishers={publishers} cancel={this.hideGameForm} 
               submit = {this.addGame}
+              game={this.state.selectedGame}
               />
             </div>
           )}
@@ -133,6 +138,7 @@ class App extends React.Component {
               ccdesc={this.descs}
               showDesc={this.state.showDesc}
               descToggle={this.descToggle.bind(this)}
+              editGame={this.selectedGameForEditing}
             />
           </div>
         </div>

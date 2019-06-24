@@ -5,7 +5,15 @@ import Description from './Description';
 
 // import GamesList from './GamesList';
 
-export default function GameCard({ game, b, desc1, descToggle, showDesc, fdesc }) {
+export default function GameCard({
+  game,
+  b,
+  desc1,
+  descToggle,
+  showDesc,
+  fdesc,
+  editGame,
+}) {
   return (
     <div className="ui card">
       <div className="image">
@@ -31,6 +39,16 @@ export default function GameCard({ game, b, desc1, descToggle, showDesc, fdesc }
           />
         </div>
       </div>
+      <div className="extra content">
+        <div className="ui two buttons">
+          <a className="ui basic green button" onClick={() => editGame(game)}>
+            <i className="ui icon edit" />
+          </a>
+          <a className="ui red basic button">
+            <i className="ui icon trash" />
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
@@ -43,5 +61,6 @@ GameCard.propTypes = {
     price: PropTypes.number.isRequired,
     duration: PropTypes.number.isRequired,
     featured: PropTypes.bool.isRequired,
-  }),
+    editGame: PropTypes.func.isRequired,
+  }), 
 };

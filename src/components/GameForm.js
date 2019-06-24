@@ -17,6 +17,7 @@ const genres = [
 export default class GameForm extends Component {
   state = {
     data: {
+      _id: null,
       name: '',
       description: '',
       price: 0,
@@ -32,6 +33,12 @@ export default class GameForm extends Component {
     // email: '',
     // password: '',
   };
+
+  componentDidMount(){
+    if(this.props.game._id){
+      this.setState({data: this.props.game})
+    }
+  }
 
   validate(data) {
     const errors = {};
@@ -321,6 +328,14 @@ GameForm.propTypes = {
   // password: PropTypes.string,
   cancel: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired,
+  game: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    players: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    duration: PropTypes.number.isRequired,
+    featured: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 GameForm.defaultProps = {
   publishers: [],
