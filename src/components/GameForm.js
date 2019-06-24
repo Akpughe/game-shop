@@ -3,40 +3,51 @@ import PropTypes from 'prop-types';
 import ReactImageFallback from 'react-image-fallback';
 import FormInlineMessage from './FormInlineMessage.js';
 
-const tags = [
-  { _id: 1, name: 'dice' },
-  { _id: 2, name: 'economics' },
-  { _id: 3, name: 'family' },
-];
-const genres = [
-  { _id: 1, name: 'abstract' },
-  { _id: 2, name: 'euro' },
-  { _id: 3, name: 'ameritrash' },
-];
+// const tags = [
+//   { _id: 1, name: 'dice' },
+//   { _id: 2, name: 'economics' },
+//   { _id: 3, name: 'family' },
+// ];
+// const genres = [
+//   { _id: 1, name: 'abstract' },
+//   { _id: 2, name: 'euro' },
+//   { _id: 3, name: 'ameritrash' },
+// ];
+
+const initialData = {
+  _id: null,
+  name: '',
+  description: '',
+  price: 0,
+  duration: 0,
+  players: '',
+  featured: false,
+  tags: [],
+  genre: 1,
+  publisher: 0,
+  thumbnail: '',
+};
 
 export default class GameForm extends Component {
   state = {
-    data: {
-      _id: null,
-      name: '',
-      description: '',
-      price: 0,
-      duration: 0,
-      players: '',
-      featured: false,
-      tags: [],
-      genre: 1,
-      publisher: 0,
-      thumbnail: '',
-    },
+    data: initialData,
     errors: {},
     // email: '',
     // password: '',
   };
 
-  componentDidMount(){
-    if(this.props.game._id){
-      this.setState({data: this.props.game})
+  componentDidMount() {
+    if (this.props.game._id) {
+      this.setState({ data: this.props.game });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.game._id && nextProps.game._id !== this.state.data._id) {
+      this.setState({ data: nextProps.game });
+    }
+    if (!nextProps.game._id) {
+      this.setState({ data: initialData });
     }
   }
 

@@ -100,8 +100,9 @@ class App extends React.Component {
   descToggle() {
     this.setState({ showDesc: !this.state.showDesc });
   }
-  showGameForm = () => this.setState({ showGameForm: true });
-  hideGameForm = () => this.setState({ showGameForm: false });
+  showGameForm = () => this.setState({ showGameForm: true, selectedGame:{} });
+  hideGameForm = () => this.setState({ showGameForm: false,selectedGame:{} }); 
+
 
   selectedGameForEditing = game => this.setState({selectedGame:game, showGameForm: true})
 
