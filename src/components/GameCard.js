@@ -13,6 +13,7 @@ class GameCard extends React.Component {
   showConfirmation = () => this.setState({ showConfirmation: true });
   hideConfirmation = () => this.setState({ showConfirmation: false });
 
+
   render() {
     const {
       game,
@@ -25,65 +26,67 @@ class GameCard extends React.Component {
       deleteGame,
     } = this.props;
     return (
-      <div className="ui card">
-        <div className="image">
-          <span className="ui green ribbon label">
-            £{game.price}
-            {game.price < 30 && '!'}
-          </span>
-          <Featured featured={game.featured} gameId={game._id} c={b} />
-          <img src={game.thumbnail} alt="Game Cover" />
-        </div>
-        <div className="content">
-          <a className="header">{game.name}</a>
-          <div className="meta">
-            <i className="icon users" />
-            {game.players}&nbsp;
-            <i className="icon wait" />
-            {game.duration}
-            <Description
-              desc={desc1}
-              fdesc={fdesc}
-              showDesc={showDesc}
-              descToggle={descToggle}
-            />
+      <>
+        <div className="ui card">
+          <div className="image">
+            <span className="ui green ribbon label">
+              £{game.price}
+              {game.price < 30 && '!'}
+            </span>
+            <Featured featured={game.featured} gameId={game._id} c={b} />
+            <img src={game.thumbnail} alt="Game Cover" />
+          </div>
+          <div className="content">
+            <a className="header">{game.name}</a>
+            <div className="meta">
+              <i className="icon users" />
+              {game.players}&nbsp;
+              <i className="icon wait" />
+              {game.duration}
+              <Description
+                desc={desc1}
+                fdesc={fdesc}
+                showDesc={showDesc}
+                descToggle={descToggle}
+              />
+            </div>
+          </div>
+          <div className="extra content">
+            {this.state.showConfirmation ? (
+              <div className="ui two buttons">
+                {/* <h4>Are you sure?</h4> */}
+                <a
+                  className="ui red basic button"
+                  onClick={() => deleteGame(game)}
+                >
+                  <i className="ui icon check" /> YES
+                </a>
+                <a
+                  className="ui grey basic button"
+                  onClick={this.hideConfirmation}
+                >
+                  <i className="ui icon close" /> NO
+                </a>
+              </div>
+            ) : (
+              <div className="ui two buttons">
+                <a
+                  className="ui basic green button"
+                  onClick={() => editGame(game)}
+                >
+                  <i className="ui icon edit" />
+                </a>
+                <a
+                  className="ui red basic button"
+                  onClick={this.showConfirmation}
+                >
+                  <i className="ui icon trash" />
+                </a>
+              </div>
+            )}
           </div>
         </div>
-        <div className="extra content">
-          {this.state.showConfirmation ? (
-            <div className="ui two buttons">
-              {/* <h4>Are you sure?</h4> */}
-              <a
-                className="ui red basic button"
-                onClick={() => deleteGame(game)}
-              >
-                <i className="ui icon check" /> YES
-              </a>
-              <a
-                className="ui grey basic button"
-                onClick={this.hideConfirmation}
-              >
-                <i className="ui icon close" /> NO
-              </a>
-            </div>
-          ) : (
-            <div className="ui two buttons">
-              <a
-                className="ui basic green button"
-                onClick={() => editGame(game)}
-              >
-                <i className="ui icon edit" />
-              </a>
-              <a
-                className="ui red basic button"
-                onClick={this.showConfirmation}
-              >
-                <i className="ui icon trash" />
-              </a>
-            </div>
-          )}
-        </div>
-      </div>
+      </>
     );
   }
 }

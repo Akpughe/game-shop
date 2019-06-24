@@ -3,6 +3,8 @@ import _orderBy from 'lodash/orderBy';
 import GamesList from './GamesList';
 import GameForm from './GameForm';
 import TopNavigation from './TopNavigation';
+import Publishers from './Publishers';
+import api from "../api"
 // import Featured from './Featured';
 
 const publishers = [
@@ -24,57 +26,19 @@ const publishers = [
   },
 ];
 
-const games = [
-  {
-    _id: '1',
-    name: 'Quadropolis',
-    publishers: 1,
-    descs: 'I am QUAD',
-    featured: true,
-    thumbnail:
-      'https://cf.geekdo-images.com/imagepage/img/imtRW8htetQkrekOqgHuZSTIWhw=/fit-in/900x600/filters:no_upscale()/pic2840020.jpg',
-    price: 32.99,
-    players: '2-4',
-    duration: 60,
-  },
-  {
-    _id: '2',
-    name: 'Five Tribes',
-    publishers: 2,
-    descs: 'I am TRIBES',
-    featured: false,
-    thumbnail:
-      'https://cf.geekdo-images.com/imagepage/img/zemPGqup_Yeve-4N-H0ufktr9Fg=/fit-in/900x600/filters:no_upscale()/pic2055255.jpg',
-    price: 51.0,
-    players: '2-4',
-    duration: 80,
-  },
-  {
-    _id: '3',
-    name: 'Roll for the Galaxy',
-    publishers: 4,
-    descs: 'I am GALAXY',
-    featured: false,
-    thumbnail:
-      'https://cf.geekdo-images.com/imagepage/img/imtRW8htetQkrekOqgHuZSTIWhw=/fit-in/900x600/filters:no_upscale()/pic2840020.jpg',
-    price: 29.99,
-    players: '2-5',
-    duration: 45,
-  },
-];
-
 class App extends React.Component {
   state = {
     games: [],
     showDesc: false,
     showGameForm: false,
+    handleShow: false,
     selectedGame: {},
   };
 
   componentDidMount() {
-    this.setState({
-      games: this.sortGames(games),
-    });
+    api.games
+    .fetchAll() 
+      .then(games => this.setState({ games: this.sortGames(games) }));
   }
 
   sortGames(games) {
@@ -103,6 +67,8 @@ class App extends React.Component {
   showGameForm = () => this.setState({ showGameForm: true, selectedGame: {} });
   hideGameForm = () => this.setState({ showGameForm: false, selectedGame: {} });
 
+  handleShow = () => this.setState({ showPublishers: true });
+
   selectedGameForEditing = game =>
     this.setState({ selectedGame: game, showGameForm: true });
 
@@ -129,16 +95,19 @@ class App extends React.Component {
       showGameForm: false,
     });
 
-    deleteGame = game => this.setState({
-      games: this.state.game.filter(item => item._id !==
-       game._id)
-    })
+  deleteGame = game =>
+    this.setState({
+      games: this.state.game.filter(item => item._id !== game._id),
+    });
 
   render() {
     const numberOfColumns = this.state.showGameForm ? 'ten' : 'sixteen';
     return (
       <div className="ui container">
-        <TopNavigation showGameForm={this.showGameForm} />
+        <TopNavigation
+          showGameForm={this.showGameForm}
+          // showPublishers={this.showPublishers}
+        />
         <div className="ui stackable grid">
           {this.state.showGameForm && (
             <div className="six wide column">
@@ -161,7 +130,9 @@ class App extends React.Component {
               editGame={this.selectedGameForEditing}
               deleteGame={this.deleteGame}
             />
+            {this.state.showPublishers && <Publishers />}
           </div>
+          <div />
         </div>
 
         <br />
