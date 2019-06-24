@@ -68,7 +68,7 @@ class App extends React.Component {
     games: [],
     showDesc: false,
     showGameForm: false,
-    selectedGame:{}
+    selectedGame: {},
   };
 
   componentDidMount() {
@@ -100,23 +100,35 @@ class App extends React.Component {
   descToggle() {
     this.setState({ showDesc: !this.state.showDesc });
   }
-  showGameForm = () => this.setState({ showGameForm: true, selectedGame:{} });
-  hideGameForm = () => this.setState({ showGameForm: false,selectedGame:{} }); 
+  showGameForm = () => this.setState({ showGameForm: true, selectedGame: {} });
+  hideGameForm = () => this.setState({ showGameForm: false, selectedGame: {} });
 
+  selectedGameForEditing = game =>
+    this.setState({ selectedGame: game, showGameForm: true });
 
-  selectedGameForEditing = game => this.setState({selectedGame:game, showGameForm: true})
+  saveGame = game => (game._id ? this.updateGame(game) : this.addGame(game));
 
-  addGame = game => this.setState({
-    games:this.sortGames([
-      //appending the already existing games
-      ...this.state.games,
-      {
-        ...game ,
-        _id: this.state.games.length +1
-      }
-    ]),
-    showGameForm: false,
-  })
+  addGame = game =>
+    this.setState({
+      games: this.sortGames([
+        //appending the already existing games
+        ...this.state.games,
+        {
+          ...game,
+          _id: this.state.games.length + 1,
+        },
+      ]),
+      showGameForm: false,
+    });
+
+  updateGame = game =>
+    this.setState({
+      games: this.sortGames(
+        this.state.games.map(item => (item._id === game._id ? game : item)),
+      ),
+      showGameForm: false,
+    });
+
   render() {
     const numberOfColumns = this.state.showGameForm ? 'ten' : 'sixteen';
     return (
@@ -125,9 +137,11 @@ class App extends React.Component {
         <div className="ui stackable grid">
           {this.state.showGameForm && (
             <div className="six wide column">
-              <GameForm publishers={publishers} cancel={this.hideGameForm} 
-              submit = {this.addGame}
-              game={this.state.selectedGame}
+              <GameForm
+                publishers={publishers}
+                cancel={this.hideGameForm}
+                submit={this.saveGame}
+                game={this.state.selectedGame}
               />
             </div>
           )}
